@@ -1,0 +1,38 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+  id                Int     @id @default(autoincrement())
+  username          String  @unique
+  password          String
+  fighters          fighter[]
+}
+
+model fighter {
+  id                Int     @id @default(autoincrement())
+  user              user    @relation(fields: [userId], references: [id])
+  name              String
+  style             String
+  moveset           moveset[]
+  userId            Int // User relation scalar
+}
+
+model moveset {
+  id                Int     @id @default(autoincrement())
+  fighter           fighter @relation(fields: [fighterId], references: [id])
+  physicalatks      String
+  rangedatks        String
+  specialatks       String
+  superatks         String
+  ultimateatk       String
+  fighterId         Int // Fighter relation scalar
+}
