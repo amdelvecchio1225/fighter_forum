@@ -71,9 +71,6 @@ router.put('/:id', async(req, res, next) => {
 router.post('/', async(req, res, next) => {
     try {
         const createdFighter = await prisma.fighter.create({
-            where: {
-                userId: Number(req.user.id)
-            },
             data: req.body
         });
         res.send(createdFighter)
