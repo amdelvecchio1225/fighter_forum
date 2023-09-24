@@ -44,8 +44,8 @@ router.get('/:id', async(req, res, next) => {
 router.delete('/:id', async(req, res, next) => {
     try {
         const userFighter = await prisma.fighter.delete({
-            where: {
-                userId: Number(req.params.id)
+            wnere: {
+                id: Number(req.params.id)
             }
         });
         res.send(userFighter);
@@ -58,7 +58,7 @@ router.put('/:id', async(req, res, next) => {
     try {
         const updatedFighter = await prisma.fighter.update({
             where: {
-                userId: Number(req.params.id)
+                id: Number(req.params.id)
             },
             data: req.body
         });
@@ -72,7 +72,7 @@ router.post('/', async(req, res, next) => {
     try {
         const createdFighter = await prisma.fighter.create({
             where: {
-                userId: Number(req.params.id)
+                userId: Number(req.user.id)
             },
             data: req.body
         });
