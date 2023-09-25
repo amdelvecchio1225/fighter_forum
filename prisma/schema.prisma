@@ -7,18 +7,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user {
-  id                Int     @id @default(autoincrement())
-  username          String  @unique
-  password          String
-  fighters          fighter[]
-}
-
 model fighter {
   id                Int     @id @default(autoincrement())
-  user              user    @relation(fields: [userId], references: [id])
   name              String
   style             String
   movelist          String
-  userId            Int // User relation scalar
 }

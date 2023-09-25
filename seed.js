@@ -2,12 +2,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
-    const bob = await prisma.user.upsert({
-        where: { username: 'bobisawesome' },
-        update: {},
-        create: {
-            username: 'bobisawesome',
-            password: 'bobsawesomepassword',
+    const bob = await prisma.fighter.upsert({
             fighters: {
                 create: {
                     name: "Bawb",
@@ -15,15 +10,9 @@ async function main() {
                     movelist: "Light/Medium/Heavy Punch & Kick, Rising Uppercut, Axe Kick, Supreme Blow, Ultra Combo"
                 },
             },
-        },
-    });
+        });
 
-    const john = await prisma.user.upsert({
-        where: { username: 'johnsmith' },
-        update: {},
-        create: {
-            username: 'johnsmith',
-            password: 'doeisoverrated',
+    const john = await prisma.fighter.upsert({
             fighters: {
                 create: {
                     name: "Smithson",
@@ -31,15 +20,9 @@ async function main() {
                     movelist: "Light/Medium/Heavy Punch & Kick, Rising Axe: Slash, Rising Axe: Chop, Enchanted Axe Blow, Ultimate Axe Kick"
                 },
             },
-        },
-    });
+        });
 
-    const jane = await prisma.user.upsert({
-        where: { username: 'janedoe' },
-        update: {},
-        create: {
-            username: 'janedoe',
-            password: 'icantthinkofapassword',
+    const jane = await prisma.fighter.upsert({
             fighters: {
                 create: {
                     name: "Doe Flipper",
@@ -47,8 +30,7 @@ async function main() {
                     movelist: "Light/Medium/Heavy Punch & Kick, Rising Tackle, Flying Side Kick, Swift Grounded Counter, Air Throw Counter, Exploding Counter, Ultra-Power Counter Blow"
                 },
             },
-        },
-    });
+        });
     console.log({bob, john, jane});
 }
 
@@ -57,7 +39,7 @@ main()
         await prisma.$disconnecet();
     })
     .catch(async (err) => {
-        console.err(err);
+        console.error(err);
         await prisma.$disconnect();
         process.exit(1);
     })
